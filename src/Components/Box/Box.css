@@ -1,0 +1,97 @@
+.navbar {
+    color: white;
+    margin-top: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 9.9em;
+    align-items: center;
+  }
+  .navbar li {
+    display: inline-block;
+    margin-right: 25px;
+    text-decoration: none;
+  }
+  .navbar li a {
+    color: white;
+    text-decoration: none;
+    border-bottom: 2px solid white;
+  }
+  
+  .navbar li a.active,
+  .navbar li a:hover {
+    color: #00ced1;
+    border-bottom: 2px solid #00ced1;
+  }
+  .container{
+      margin-top: 9em;
+  }
+  .card-body {
+      background-color: #000;
+      border-radius: 20px;
+      
+    }
+    .MuiDataGrid-cell {
+      text-transform: capitalize;
+    }
+  .reload{
+    position: absolute;
+    right: 15px;
+    margin: 35px 18px 0px 0px;
+    background-color: #6c757d;
+    border-radius: 5px;
+    border: 1px solid #000;
+    font-size: 15px;
+    width: 78px;
+    height: 33px;
+  }
+  
+  
+    @media (max-width: 500px) {
+      .navbar {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+      }
+      
+      .navbar ul {
+        width: 40em;
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        margin-left: -65px;
+      }
+      .navbar li {
+        display: flex;
+        flex-direction: row;
+        margin-right: 25px;
+        text-decoration: none;
+      }
+      .navbar li a {
+        display: flex;
+        flex-direction: row;
+        color: white;
+        text-decoration: none;
+        border-bottom: 2px solid white;
+      }
+      
+      .navbar li a.active,
+      .navbar li a:hover {
+        color: #00ced1;
+        border-bottom: 2px solid #00ced1;
+      }
+      .reload{
+        margin-top: 30px;
+        width: 72px;
+        color: black;
+        font-size: 13px;
+      }
+    }
+  
+  

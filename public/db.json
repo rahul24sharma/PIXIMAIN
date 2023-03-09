@@ -1,0 +1,50 @@
+{
+  "posts": [
+    {
+      "name": "rsh",
+      "value": 10,
+      "value2": 2,
+      "point": 2.56,
+      "cash": "1.72",
+      "cash2": "1.72",
+      "id": 3
+    },
+    {
+      "name": "ssh",
+      "value": 10,
+      "value2": 2,
+      "point": 1.12,
+      "cash": "1.00",
+      "cash2": "1.00",
+      "id": 4
+    },
+    {
+      "name": "rahul sharma",
+      "value": 1,
+      "value2": 1,
+      "point": 1.1,
+      "cash": "1.00",
+      "cash2": "1.00",
+      "id": 5
+    },
+    {
+      "name": "rahul",
+      "value": 10,
+      "value2": 5,
+      "point": 3.61,
+      "cash": "1.00",
+      "cash2": "1.00",
+      "id": 6
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

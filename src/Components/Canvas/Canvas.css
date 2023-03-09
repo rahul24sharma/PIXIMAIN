@@ -1,0 +1,32 @@
+
+body {
+    margin: 0;
+    font-family: var(--bs-body-font-family);
+    font-size: var(--bs-body-font-size);
+    font-weight: var(--bs-body-font-weight);
+    line-height: var(--bs-body-line-height);
+    color: var(--bs-body-color);
+    text-align: var(--bs-body-text-align);
+    background-color: #282621;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  canvas{
+    border-radius: 15px;
+    margin-top: 0.6em;
+  }
+  
+  
+  @media (max-width: 500px) {
+    canvas{
+      width: 380px;
+      display: block;
+        position: absolute;
+        margin:0  auto;
+        top: 0px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-radius: 8px;
+    }
+  }  

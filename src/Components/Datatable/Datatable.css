@@ -1,0 +1,12 @@
+.results{
+    width: 80px;
+    height: 36px;
+}
+
+@media (max-width: 500px) {
+    .results{
+        height: 33px;
+        width: 70px;
+        font-size: 14px;
+    }
+}
