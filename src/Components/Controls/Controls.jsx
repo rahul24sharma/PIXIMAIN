@@ -170,11 +170,52 @@ const Control = () => {
   //     });
   // };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const data = { name, value, value2, point, cash, cash2 };
+  //   console.log(data);
+
+  //   fetch("http://localhost:8000/posts")
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       const existingData = json.find(
+  //         (item) =>
+  //           item.name === name &&
+  //           item.value === value &&
+  //           item.value2 === value2 &&
+  //           item.point === point
+  //       );
+  //       if (existingData) {
+  //         existingData.cash = cash;
+  //         existingData.cash2 = cash2;
+  //         fetch(`http://localhost:8000/posts/${existingData.id}`, {
+  //           method: "PUT",
+  //           headers: { "content-type": "application/json" },
+  //           body: JSON.stringify(existingData),
+  //         }).then(() => {
+  //           console.log("Data updated successfully");
+  //         });
+  //       } else {
+  //         fetch("http://localhost:8000/posts", {
+  //           method: "POST",
+  //           headers: { "content-type": "application/json" },
+  //           body: JSON.stringify(data),
+  //         })
+  //           .then(() => {
+  //             console.log("Data saved successfully");
+  //           })
+  //           .catch((err) => {
+  //             console.log(err.message);
+  //           });
+  //       }
+  //     });
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { name, value, value2, point, cash, cash2 };
     console.log(data);
-
+  
     fetch("http://localhost:8000/posts")
       .then((response) => response.json())
       .then((json) => {
@@ -188,7 +229,8 @@ const Control = () => {
         if (existingData) {
           existingData.cash = cash;
           existingData.cash2 = cash2;
-          fetch(`http://localhost:8000/posts/${existingData.id}`, {
+          const id = existingData.id; // define the id variable
+          fetch(`http://localhost:8000/posts/${id}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(existingData),
@@ -210,6 +252,7 @@ const Control = () => {
         }
       });
   };
+  
 
   return (
     <div className="b1">
