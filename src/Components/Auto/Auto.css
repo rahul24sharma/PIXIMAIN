@@ -147,7 +147,8 @@ input:checked + .slider:before {
       color: #000;
     }
     .wrap{
-      border-color: white;
+      border: 1px solid #fff;
+      outline: none;
     }
     
 }
