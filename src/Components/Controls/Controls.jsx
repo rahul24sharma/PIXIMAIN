@@ -13,7 +13,6 @@ import {
   where,
   getDocs,
   updateDoc,
-  doc,
   serverTimestamp,
 } from "firebase/firestore";
 import { db } from "../../firebase";
@@ -26,6 +25,7 @@ const Control = () => {
   const [flipped, setFlipped] = useState(false);
   const [fliped, setFliped] = useState(false);
   const [toggle, setToggle] = useState(false);
+  const [toggle2, setToggle2] = useState(false);
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
   const [number, setNumber] = useState(1.0);
@@ -74,7 +74,6 @@ const Control = () => {
 
     return () => clearTimeout(timerId2);
   }, []);
-
 
   const handleIncrement = () => {
     setValue((prevValue) => parseFloat((prevValue + 0.01).toFixed(2)));
@@ -131,6 +130,9 @@ const Control = () => {
   const handleToggleChange = () => {
     setToggle(!toggle);
   };
+  const handleToggleChange2 = () => {
+    setToggle2(!toggle2);
+  };
 
   const [name, nameChange] = useState("");
 
@@ -185,80 +187,91 @@ const Control = () => {
             icon={faPlusSquare}
           />
           <div>
-      <div className="toggle-container" onClick={handleToggleChange}>
-        <div className={`toggle-btn ${!toggle ? "disable" : ""}`}>
-          {toggle ? "Auto" : "Bet"}
-        </div>
-      </div>
-      {toggle ? (
-        <div className="auto-container">
-          <Auto />
-        </div>
-      ) : (
-        <div className="bet-container">
-          <form onSubmit={handleSubmit}>
-            <div className="betxx">
-              <button
-                className={`flip-button ${flipped ? "flipped" : ""}`}
-                onClick={handleClick}
-              >
-                <div className="flip-front">Bet</div>
-                <div className="flip-back">
-                  Cashout
+            <div className="toggle-container" onClick={handleToggleChange}>
+              <div className={`toggle-btn ${!toggle ? "disable" : ""}`}>
+                {toggle ? "Auto" : "Bet"}
+              </div>
+            </div>
+            {toggle ? (
+              <div className="auto-container">
+                <Auto />
+              </div>
+            ) : (
+              <div className="bet-container">
+                <form onSubmit={handleSubmit}>
+                  <div className="betxx">
+                    <button
+                      className={`flip-button ${flipped ? "flipped" : ""}`}
+                      onClick={handleClick}
+                    >
+                      <div className="flip-front">Bet</div>
+                      <div className="flip-back">
+                        Cashout
+                        <br />
+                        {cash + "x"}
+                      </div>
+                    </button>
+                  </div>
+                  <ToastContainer />
+                  <div className="wrapper">
+                    <div className="multiplier">{value.toFixed(2)}</div>
+                    <FontAwesomeIcon
+                      className="inc"
+                      onClick={handleIncrement}
+                      style={{
+                        backgroundColor: "black",
+                        color: "white",
+                        fontSize: "23px",
+                        outline: "none",
+                      }}
+                      icon={faPlusSquare}
+                    />
+                    <FontAwesomeIcon
+                      className="inc2"
+                      onClick={handleDecrement}
+                      style={{
+                        backgroundColor: "black",
+                        color: "white",
+                        fontSize: "23px",
+                        outline: "none",
+                        margin: "0px 5px",
+                      }}
+                      icon={faMinusSquare}
+                    />
+                  </div>
+                </form>
+                <div className="buttons">
+                  <button
+                    onClick={() => handleValueButton(1)}
+                    className="dollar"
+                  >
+                    1$
+                  </button>
+                  <button
+                    onClick={() => handleValueButton(2)}
+                    className="dollar"
+                  >
+                    2$
+                  </button>
                   <br />
-                  {cash + "x"}
+                  <div className="third">
+                    <button
+                      className="dollar"
+                      onClick={() => handleValueButton(5)}
+                    >
+                      5$
+                    </button>
+                    <button
+                      onClick={() => handleValueButton(10)}
+                      className="dollar"
+                    >
+                      10$
+                    </button>
+                  </div>
                 </div>
-              </button>
-            </div>
-            <ToastContainer />
-            <div className="wrapper">
-              <div className="multiplier">{value.toFixed(2)}</div>
-              <FontAwesomeIcon
-                className="inc"
-                onClick={handleIncrement}
-                style={{
-                  backgroundColor: "black",
-                  color: "white",
-                  fontSize: "23px",
-                  outline: "none",
-                }}
-                icon={faPlusSquare}
-              />
-              <FontAwesomeIcon
-                className="inc2"
-                onClick={handleDecrement}
-                style={{
-                  backgroundColor: "black",
-                  color: "white",
-                  fontSize: "23px",
-                  outline: "none",
-                  margin: "0px 5px",
-                }}
-                icon={faMinusSquare}
-              />
-            </div>
-          </form>
-          <div className="buttons">
-            <button onClick={() => handleValueButton(1)} className="dollar">
-              1$
-            </button>
-            <button onClick={() => handleValueButton(2)} className="dollar">
-              2$
-            </button>
-            <br />
-            <div className="third">
-              <button className="dollar" onClick={() => handleValueButton(5)}>
-                5$
-              </button>
-              <button onClick={() => handleValueButton(10)} className="dollar">
-                10$
-              </button>
-            </div>
+              </div>
+            )}
           </div>
-        </div>
-      )}
-    </div>
-          
         </div>
         {show && (
           <div className="box" id="box2">
@@ -275,96 +288,98 @@ const Control = () => {
               icon={faMinusSquare}
             />
             <div>
-      <div className="toggle-container" onClick={handleToggleChange}>
-        <div className={`toggle-btn ${!toggle ? "disable" : ""}`}>
-          {toggle ? "Auto" : "Bet"}
-        </div>
-      </div>
-      {toggle ? (
-        <div className="auto-container">
-          {/* content for the auto container */}
-        </div>
-      ) : (
-        <div className="bet-container">
-           <form onSubmit={handleSubmit}>
-              <div className="betx">
-                <button
-                  style={{ borderRadius: "5px", marginTop: "-10px" }}
-                  className={`flip-button ${fliped ? "fliped" : ""}`}
-                  onClick={clicked}
-                >
-                  <div className="flip-front">Bet</div>
-                  <div style={{ borderRadius: "5px" }} className="flip-back">
-                    Cashout <br />
-                    {cash2 + "x"}
+              <div className="toggle-container2" onClick={handleToggleChange2}>
+                <div className={`toggle-btn2 ${!toggle2 ? "disable2" : ""}`}>
+                  {toggle2 ? "Auto" : "Bet"}
+                </div>
+              </div>
+              {toggle2 ? (
+                <div className="auto-container">
+                  <Auto />
+                </div>
+              ) : (
+                <div className="bet-container">
+                  <form onSubmit={handleSubmit}>
+                    <div className="betx">
+                      <button
+                        style={{ borderRadius: "5px", marginTop: "-10px" }}
+                        className={`flip-button ${fliped ? "fliped" : ""}`}
+                        onClick={clicked}
+                      >
+                        <div className="flip-front">Bet</div>
+                        <div
+                          style={{ borderRadius: "5px" }}
+                          className="flip-back"
+                        >
+                          Cashout <br />
+                          {cash2 + "x"}
+                        </div>
+                      </button>
+                    </div>
+                    <ToastContainer />
+                    <div className="wrapper">
+                      <div className="multiplier">{value2.toFixed(2)}</div>
+                      <FontAwesomeIcon
+                        className="inc"
+                        onClick={handleIncrement2}
+                        style={{
+                          backgroundColor: "black",
+                          color: "white",
+                          fontSize: "23px",
+                          outline: "none",
+                        }}
+                        icon={faPlusSquare}
+                      />
+                      <FontAwesomeIcon
+                        className="inc"
+                        onClick={handleDecrement2}
+                        style={{
+                          backgroundColor: "black",
+                          color: "white",
+                          fontSize: "23px",
+                          margin: "0px 5px",
+                          outline: "none",
+                        }}
+                        icon={faMinusSquare}
+                      />
+                    </div>
+                  </form>
+                  <div className="buttons">
+                    <button
+                      onClick={() => handleValueButton2(1)}
+                      variant="secondary"
+                      className="dollar"
+                      size="sm"
+                    >
+                      1$
+                    </button>
+                    <button
+                      onClick={() => handleValueButton2(2)}
+                      variant="secondary"
+                      className="dollar"
+                      size="sm"
+                    >
+                      2$
+                    </button>
+                    <br />
+                    <div className="third">
+                      <button
+                        onClick={() => handleValueButton2(5)}
+                        className="dollar"
+                      >
+                        5$
+                      </button>
+                      <button
+                        onClick={() => handleValueButton2(10)}
+                        className="dollar"
+                      >
+                        10$
+                      </button>
+                    </div>
                   </div>
-                </button>
-              </div>
-              <ToastContainer />
-              <div className="wrapper">
-                <div className="multiplier">{value2.toFixed(2)}</div>
-                <FontAwesomeIcon
-                  className="inc"
-                  onClick={handleIncrement2}
-                  style={{
-                    backgroundColor: "black",
-                    color: "white",
-                    fontSize: "23px",
-                    outline: "none",
-                  }}
-                  icon={faPlusSquare}
-                />
-                <FontAwesomeIcon
-                  className="inc"
-                  onClick={handleDecrement2}
-                  style={{
-                    backgroundColor: "black",
-                    color: "white",
-                    fontSize: "23px",
-                    margin: "0px 5px",
-                    outline: "none",
-                  }}
-                  icon={faMinusSquare}
-                />
-              </div>
-            </form>
-            <div className="buttons">
-              <button
-                onClick={() => handleValueButton2(1)}
-                variant="secondary"
-                className="dollar"
-                size="sm"
-              >
-                1$
-              </button>
-              <button
-                onClick={() => handleValueButton2(2)}
-                variant="secondary"
-                className="dollar"
-                size="sm"
-              >
-                2$
-              </button>
-              <br />
-              <div className="third">
-                <button
-                  onClick={() => handleValueButton2(5)}
-                  className="dollar"
-                >
-                  5$
-                </button>
-                <button
-                  onClick={() => handleValueButton2(10)}
-                  className="dollar"
-                >
-                  10$
-                </button>
-              </div>
+                </div>
+              )}
             </div>
-        </div>
-      )}
-    </div>
-           
           </div>
         )}
       </div>

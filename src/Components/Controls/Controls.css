@@ -4,7 +4,7 @@
     height: 200px;
     margin: 29em 0em;
     background-color: #000;
-    border-radius: 25px;
+    border-radius: 20px;
   }
   .dollar{
     background-color: #282828;
@@ -24,8 +24,29 @@
     margin: 15px 0px 5px 16px;
     border-radius: 20px;
   }
+  .con .box2 {
+    position: relative;
+    width: calc(430px - 30px);
+    height: calc(200px - 30px);
+    background: #282828;
+    float: left;
+    margin: 15px 0px 5px 16px;
+    border-radius: 20px;
+  }
   
   .toggle-container {
+    margin-left: 6em;
+    margin-top: 0.5em;
+    position: relative;
+    width: 200px;
+    height: 25px;
+    background-color: #c4c4c4;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 15px;
+    padding: 2px;
+  }
+  .toggle-container2 {
     margin-left: 6em;
     margin-top: 0.5em;
     position: relative;
@@ -56,7 +77,30 @@
     transition: all 0.4s ease;
     left: 85px;
   }
+  .toggle-btn2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 16px;
+    cursor: pointer;
+    color: #fff;
+    background-color: black;
+    box-shadow: 0 2px 4px rgb(0, 0, 0, 0.25);
+    padding: 2.5px 40px;
+    border-radius: 15px;
+    position: absolute;
+    transition: all 0.4s ease;
+    left: 85px;
+  }
   .disable {
+    background-color: #282621;
+    left: 3px;
+  }
+  .disable2{
     background-color: #282621;
     left: 3px;
   }
@@ -287,6 +331,7 @@
       border-radius: 5px;
       border: 1px solid #00ced1;
     }
+ 
     .plus{
       position: relative;
       right: 3px;
@@ -317,6 +362,33 @@
       left: 78px;
     }
     .disable {
+      background-color: #282621;
+      left: 3px;
+    }
+    .toggle-container2 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-left: 6.5em;
+      margin-top: 7px;
+      width: 170px;
+      height: 20px;
+      position: relative;
+    }
+    .toggle-btn2 {
+      width: 85;
+      font-weight: bold;
+      margin-top:-0.5px ;
+      margin-left: -1.5px;
+      height: 17px;
+      font-size: 9px;
+      padding: 0.5px 35px;
+      border-radius: 15px;
+      position: absolute;
+      transition: all 0.4s ease;
+      left: 78px;
+    }
+    .disable2 {
       background-color: #282621;
       left: 3px;
     }
@@ -401,7 +473,7 @@
       width: 380px;
       right: 0;
       left: 0;
-      margin: -4em auto;
+      margin: -3.5em auto;
     }
     .formitems{
       position: relative;
