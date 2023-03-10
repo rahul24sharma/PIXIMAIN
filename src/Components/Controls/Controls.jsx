@@ -3,9 +3,21 @@ import "./Controls.css";
 import { faMinusSquare, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { point } from "../Canvas/Canvas";
-import Datatable from "../Datatable/Datatable"
+import Datatable from "../Datatable/Datatable";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+  doc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { db } from "../../firebase";
+import Auto from "../Auto/Auto";
 
 const Control = () => {
   const [value, setValue] = useState(1.0);
@@ -16,8 +28,8 @@ const Control = () => {
   const [toggle, setToggle] = useState(false);
   const [count1, setCount1] = useState(0);
   const [count2, setCount2] = useState(0);
-  const [number, setNumber] = useState(1.00);
-  const [number2, setNumber2] = useState(1.00);
+  const [number, setNumber] = useState(1.0);
+  const [number2, setNumber2] = useState(1.0);
 
   const cash = number.toFixed(2);
   const cash2 = number2.toFixed(2);
@@ -39,7 +51,7 @@ const Control = () => {
       }, 100);
 
       return () => clearInterval(intervalId);
-    }, 13700);
+    }, 6000);
 
     return () => clearTimeout(timerId);
   }, []);
@@ -58,18 +70,11 @@ const Control = () => {
       }, 100);
 
       return () => clearInterval(intervalId2);
-    }, 13700);
+    }, 6000);
 
     return () => clearTimeout(timerId2);
   }, []);
 
-  // useEffect(() => {
-  //   const timeoutId = setTimeout(() => {
-  //     window.location.reload();
-  //   }, point); // Reload after 5 seconds
-
-  //   return () => clearTimeout(timeoutId); // Cleanup function to clear the timeout when the component unmounts
-  // }, []);
 
   const handleIncrement = () => {
     setValue((prevValue) => parseFloat((prevValue + 0.01).toFixed(2)));
@@ -129,137 +134,46 @@ const Control = () => {
 
   const [name, nameChange] = useState("");
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const data = { name, value, value2, point, cash, cash2 };
-  //   console.log(data);
-
-  //   fetch("http://localhost:8000/posts")
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       const existingData = json.find(
-  //         (item) =>
-  //           item.name === name &&
-  //           item.value === value &&
-  //           item.value2 === value2 &&
-  //           item.point === point
-  //       );
-  //       if (existingData) {
-  //         existingData.cash = cash;
-  //         existingData.cash2 = cash2;
-  //         fetch(`http://localhost:8000/posts/${existingData.id}`, {
-  //           method: "PUT",
-  //           headers: { "content-type": "application/json" },
-  //           body: JSON.stringify(existingData),
-  //         }).then(() => {
-  //           console.log("Data updated successfully");
-  //         });
-  //       } else {
-  //         fetch("http://localhost:8000/posts", {
-  //           method: "POST",
-  //           headers: { "content-type": "application/json" },
-  //           body: JSON.stringify(data),
-  //         })
-  //           .then(() => {
-  //             console.log("Data saved successfully");
-  //           })
-  //           .catch((err) => {
-  //             console.log(err.message);
-  //           });
-  //       }
-  //     });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const data = { name, value, value2, point, cash, cash2 };
-  //   console.log(data);
-
-  //   fetch("http://localhost:8000/posts")
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       const existingData = json.find(
-  //         (item) =>
-  //           item.name === name &&
-  //           item.value === value &&
-  //           item.value2 === value2 &&
-  //           item.point === point
-  //       );
-  //       if (existingData) {
-  //         existingData.cash = cash;
-  //         existingData.cash2 = cash2;
-  //         fetch(`http://localhost:8000/posts/${existingData.id}`, {
-  //           method: "PUT",
-  //           headers: { "content-type": "application/json" },
-  //           body: JSON.stringify(existingData),
-  //         }).then(() => {
-  //           console.log("Data updated successfully");
-  //         });
-  //       } else {
-  //         fetch("http://localhost:8000/posts", {
-  //           method: "POST",
-  //           headers: { "content-type": "application/json" },
-  //           body: JSON.stringify(data),
-  //         })
-  //           .then(() => {
-  //             console.log("Data saved successfully");
-  //           })
-  //           .catch((err) => {
-  //             console.log(err.message);
-  //           });
-  //       }
-  //     });
-  // };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { name, value, value2, point, cash, cash2 };
-    console.log(data);
-  
-    fetch("http://localhost:8000/posts")
-      .then((response) => response.json())
-      .then((json) => {
-        const existingData = json.find(
-          (item) =>
-            item.name === name &&
-            item.value === value &&
-            item.value2 === value2 &&
-            item.point === point
-        );
-        if (existingData) {
-          existingData.cash = cash;
-          existingData.cash2 = cash2;
-          const id = existingData.id; // define the id variable
-          fetch(`http://localhost:8000/posts/${id}`, {
-            method: "PUT",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(existingData),
-          }).then(() => {
-            console.log("Data updated successfully");
-          });
-        } else {
-          fetch("http://localhost:8000/posts", {
-            method: "POST",
-            headers: { "content-type": "application/json" },
-            body: JSON.stringify(data),
-          })
-            .then(() => {
-              console.log("Data saved successfully");
-            })
-            .catch((err) => {
-              console.log(err.message);
-            });
-        }
-      });
+
+    try {
+      const postsRef = collection(db, "posts");
+      const q = query(
+        postsRef,
+        where("name", "==", name),
+        where("value", "==", value),
+        where("value2", "==", value2),
+        where("point", "==", point)
+      );
+      const querySnapshot = await getDocs(q);
+
+      if (querySnapshot.docs.length > 0) {
+        const existingData = querySnapshot.docs[0];
+        await updateDoc(existingData.ref, {
+          cash,
+          cash2,
+        });
+        console.log("Data updated successfully");
+      } else {
+        await addDoc(postsRef, {
+          ...data,
+          timestamp: serverTimestamp(),
+        });
+        console.log("Data saved successfully");
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
   };
-  
 
   return (
     <div className="b1">
       <div className="con">
         <div className="box">
           <FontAwesomeIcon
-          className="plus"
+            className="plus"
             onClick={() => setShow(!show)}
             style={{
               color: "black",
@@ -270,11 +184,18 @@ const Control = () => {
             }}
             icon={faPlusSquare}
           />
-          <div className="toggle-container" onClick={handleToggleChange}>
-            <div className={`toggle-btn ${!toggle ? "disable" : ""}`}>
-              {toggle ? "Auto" : "Bet"}
-            </div>
-          </div>
+          <div>
+      <div className="toggle-container" onClick={handleToggleChange}>
+        <div className={`toggle-btn ${!toggle ? "disable" : ""}`}>
+          {toggle ? "Auto" : "Bet"}
+        </div>
+      </div>
+      {toggle ? (
+        <div className="auto-container">
+          <Auto />
+        </div>
+      ) : (
+        <div className="bet-container">
           <form onSubmit={handleSubmit}>
             <div className="betxx">
               <button
@@ -291,9 +212,9 @@ const Control = () => {
             </div>
             <ToastContainer />
             <div className="wrapper">
-              <div className="multiplier" >{value.toFixed(2)}</div>
+              <div className="multiplier">{value.toFixed(2)}</div>
               <FontAwesomeIcon
-              className="inc"
+                className="inc"
                 onClick={handleIncrement}
                 style={{
                   backgroundColor: "black",
@@ -304,7 +225,7 @@ const Control = () => {
                 icon={faPlusSquare}
               />
               <FontAwesomeIcon
-              className="inc2"
+                className="inc2"
                 onClick={handleDecrement}
                 style={{
                   backgroundColor: "black",
@@ -316,39 +237,33 @@ const Control = () => {
                 icon={faMinusSquare}
               />
             </div>
-            </form>
+          </form>
           <div className="buttons">
-            <button
-              onClick={() => handleValueButton(1)}
-              className="dollar"
-            >
+            <button onClick={() => handleValueButton(1)} className="dollar">
               1$
             </button>
-            <button
-              onClick={() => handleValueButton(2)}
-              className="dollar"
-            >
+            <button onClick={() => handleValueButton(2)} className="dollar">
               2$
-            </button><br/>
+            </button>
+            <br />
             <div className="third">
-              <button className="dollar"
-                onClick={() => handleValueButton(5)}
-              >
+              <button className="dollar" onClick={() => handleValueButton(5)}>
                 5$
               </button>
-              <button
-                onClick={() => handleValueButton(10)}
-                className="dollar"
-              >
+              <button onClick={() => handleValueButton(10)} className="dollar">
                 10$
               </button>
-              </div>
+            </div>
           </div>
+        </div>
+      )}
+    </div>
+          
         </div>
         {show && (
           <div className="box" id="box2">
             <FontAwesomeIcon
-            className="plus"
+              className="plus"
               onClick={() => setShow(!show)}
               style={{
                 color: "black",
@@ -359,20 +274,27 @@ const Control = () => {
               }}
               icon={faMinusSquare}
             />
-            <div className="toggle-container" onClick={handleToggleChange}>
-              <div className={`toggle-btn ${!toggle ? "disable" : ""}`}>
-                {toggle ? "Auto" : "Bet"}
-              </div>
-            </div>
-            <form onSubmit={handleSubmit}>
+            <div>
+      <div className="toggle-container" onClick={handleToggleChange}>
+        <div className={`toggle-btn ${!toggle ? "disable" : ""}`}>
+          {toggle ? "Auto" : "Bet"}
+        </div>
+      </div>
+      {toggle ? (
+        <div className="auto-container">
+          {/* content for the auto container */}
+        </div>
+      ) : (
+        <div className="bet-container">
+           <form onSubmit={handleSubmit}>
               <div className="betx">
                 <button
-                  style={{ borderRadius: "5px",marginTop:'-10px' }}
+                  style={{ borderRadius: "5px", marginTop: "-10px" }}
                   className={`flip-button ${fliped ? "fliped" : ""}`}
                   onClick={clicked}
                 >
                   <div className="flip-front">Bet</div>
-                  <div style={{borderRadius:'5px'}} className="flip-back">
+                  <div style={{ borderRadius: "5px" }} className="flip-back">
                     Cashout <br />
                     {cash2 + "x"}
                   </div>
@@ -382,7 +304,7 @@ const Control = () => {
               <div className="wrapper">
                 <div className="multiplier">{value2.toFixed(2)}</div>
                 <FontAwesomeIcon
-                className="inc"
+                  className="inc"
                   onClick={handleIncrement2}
                   style={{
                     backgroundColor: "black",
@@ -393,7 +315,7 @@ const Control = () => {
                   icon={faPlusSquare}
                 />
                 <FontAwesomeIcon
-                className="inc"
+                  className="inc"
                   onClick={handleDecrement2}
                   style={{
                     backgroundColor: "black",
@@ -422,7 +344,8 @@ const Control = () => {
                 size="sm"
               >
                 2$
-              </button><br/>
+              </button>
+              <br />
               <div className="third">
                 <button
                   onClick={() => handleValueButton2(5)}
@@ -438,6 +361,10 @@ const Control = () => {
                 </button>
               </div>
             </div>
+        </div>
+      )}
+    </div>
+           
           </div>
         )}
       </div>

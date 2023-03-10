@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { DataGrid } from '@mui/x-data-grid';
+import { collection, getDocs } from  "firebase/firestore"
 import './Datatable.css'
+import { db } from "../../firebase"
+
+
 const Datatable = () => {
-  const [data,dataChange] = useState([])
+  const [data,setData] = useState([])
   const values = [true];
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
@@ -24,15 +27,22 @@ const Datatable = () => {
     setFullscreen(breakpoint);
     setShow(true);
   }
-  useEffect(()=>{
-    fetch("http://localhost:8000/posts").then((res)=>{
-      return res.json()
-    }).then((resp)=>{
-      dataChange(resp)
-    }).catch((err)=>{
-      console.log(err.message)
-    })
-  },[])
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const postsRef = collection(db, "posts");
+      const querySnapshot = await getDocs(postsRef);
+      const documents = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        data.id = doc.id;
+        return data;
+      });
+      setData(documents);
+    };
+
+    fetchData();
+  }, []);
 
   
   return (

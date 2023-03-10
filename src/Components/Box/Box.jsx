@@ -2,6 +2,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./Box.css";
 import { DataGrid } from '@mui/x-data-grid';
+import { db } from "../../firebase"
+import { collection, getDocs } from  "firebase/firestore"
 
 
 const Box = () => {
@@ -14,23 +16,25 @@ const Box = () => {
   
 
   const columns = [
-    // { field: 'id', headerName: 'ID', width: 100 },
+     { field: 'id', headerName: 'ID', width: 100 },
     { field: "name", headerName: "Username", width: 150 },
     { field: "value", headerName: "Bet", width: 100 },
     { field: "point", headerName: "Multiplier", width: 100 },
   ];
 
   useEffect(() => {
-    fetch("http://localhost:8000/posts")
-      .then((res) => {
-        return res.json();
-      })
-      .then((resp) => {
-        setData(resp);
-      })
-      .catch((err) => {
-        console.log(err.message);
+    const fetchData = async () => {
+      const postsRef = collection(db, "posts");
+      const querySnapshot = await getDocs(postsRef);
+      const documents = querySnapshot.docs.map((doc) => {
+        const data = doc.data();
+        data.id = doc.id;
+        return data;
       });
+      setData(documents);
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
