@@ -137,4 +137,13 @@ input:checked + .slider:before {
         height: 25px;
         margin-left: 15px;
     }
+    .wrap{
+      border-color: #fff;
+    }
+    .buttonsauto{
+      color: #000;
+    }
+    .autoplay{
+      color: #000;
+    }
 }
