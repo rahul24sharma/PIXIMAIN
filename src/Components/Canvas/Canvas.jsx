@@ -223,18 +223,13 @@ const Canvas = () => {
             app.stage.addChild(txt2);
             txt2.position.set(app.screen.width / 2, app.screen.height / 2);
             setTimeout(() => {
-              process.on("exit", () => {
-                require("child_process").spawn(
-                  process.argv.shift(),
-                  process.argv,
-                  {
-                    cwd: process.cwd(),
-                    detached: true,
-                    stdio: "inherit",
-                  }
-                );
-              });
-              process.exit();
+              if (typeof window !== "undefined") {
+                window.location.reload();
+              }else{
+                function reloadPage(response) {
+                  response.redirect("/");
+                }
+              }
             }, 2000);
           }, 3000);
         }
