@@ -223,8 +223,20 @@ const Canvas = () => {
             app.stage.addChild(txt2);
             txt2.position.set(app.screen.width / 2, app.screen.height / 2);
             setTimeout(() => {
-              process.exit(0)
-            }, 2000);
+              if (typeof window !== "undefined") {
+                window.location.reload();
+              } else {
+                // if running on server, restart the server process
+                process.on("exit", () => {
+                  require("child_process").spawn(process.argv.shift(), process.argv, {
+                    cwd: process.cwd(),
+                    detached: true,
+                    stdio: "inherit",
+                  });
+                });
+                process.exit();
+              }
+            }, 2000);            
           }, 3000);
         }
       }
