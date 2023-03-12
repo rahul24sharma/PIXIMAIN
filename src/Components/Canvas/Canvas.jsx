@@ -223,7 +223,11 @@ const Canvas = () => {
             app.stage.addChild(txt2);
             txt2.position.set(app.screen.width / 2, app.screen.height / 2);
             setTimeout(() => {
-              window.location.reload();
+              if (typeof window !== "undefined") {
+                window.location.reload();
+              }else{
+                process.exit(0)
+              }
             }, 2000);
           }, 3000);
         }
