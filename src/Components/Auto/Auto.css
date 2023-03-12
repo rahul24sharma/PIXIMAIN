@@ -124,7 +124,7 @@ input:checked + .slider:before {
 }
 @media (max-width: 500px) {
     .main{
-        margin: 1px 25px 0 200px;
+        margin: 1px 25px 0 180px;
     }
     .autoplay{
         font-size: 13px;

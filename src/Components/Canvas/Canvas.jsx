@@ -5,7 +5,7 @@ import "@pixi/gif";
 import { Assets } from "pixi.js";
 import { gsap } from "gsap";
 import "./Canvas.css";
-import gifImage from "../gifImage.gif"
+import gifImage from "../gifImage.gif";
 
 const Canvas = () => {
   const appRef = useRef(null);
@@ -20,7 +20,16 @@ const Canvas = () => {
     document.body.appendChild(app.view);
     let countdown = 15;
     let value = 1.0;
-    let duration = 10000 / 100;
+
+    const blackRect = new PIXI.Graphics();
+    blackRect.beginFill(0x00000);
+    blackRect.drawRoundedRect(0, 0, 250, 5, 1);
+    blackRect.endFill();
+    blackRect.position.set(
+      app.screen.width / 2 - blackRect.width / 2,
+      app.screen.height / 2 - blackRect.height / 2
+    );
+    app.stage.addChild(blackRect);
 
     const rect = new PIXI.Graphics();
     rect.beginFill(0x00ced1);
@@ -37,7 +46,7 @@ const Canvas = () => {
     app.stage.addChild(rect);
 
     // Create the animation
-    const dur = 5400; // 7 seconds
+    const dur = 5800; // 7 seconds
     const endScale = 1;
     const fps = 60;
     const frameTime = 1000 / fps;
@@ -55,9 +64,8 @@ const Canvas = () => {
       }
     }
 
-    // Start the animation
     animate();
-    gsap.to(rect, { duration: 5.6, delay: 5.6, alpha: 0 });
+    gsap.to(blackRect, { duration: 0, delay: 6, alpha: 0 });
 
     const loadingText = new PIXI.Text("Loading...", {
       fill: "white",
@@ -66,7 +74,7 @@ const Canvas = () => {
     loadingText.anchor.set(0.5);
     loadingText.position.set(app.view.width / 2, app.view.height / 2 - 65);
     app.stage.addChild(loadingText);
-    gsap.to(loadingText, { duration: 3.5, delay: 3.5, alpha: 0 });
+    gsap.to(loadingText, { duration: 0, delay: 6, alpha: 0 });
 
     let progress = 0;
 
@@ -91,7 +99,6 @@ const Canvas = () => {
     loaderContainer.position.set(app.screen.width / 2, app.screen.height / 2.8);
     app.stage.addChild(loaderContainer);
 
-    // Create the loader graphics
     const loader = new PIXI.Graphics();
     loader.lineStyle(4, 0x00ced1);
     loader.drawRect(-30, -30, 60, 60);
@@ -101,7 +108,7 @@ const Canvas = () => {
     app.ticker.add((delta) => {
       loader.rotation += 0.1 * delta;
     });
-    gsap.to(loaderContainer, { duration: 3, delay: 3, alpha: 0 });
+    gsap.to(loaderContainer, { duration: 0, delay: 6, alpha: 0 });
 
     const txt = new PIXI.Text("15", {
       fontFamily: "Arial",
@@ -136,18 +143,20 @@ const Canvas = () => {
       timer.timerManager.update(app.ticker.elapsedMS);
     }, this);
 
-    async function imageCall() {
+    async function animatePlane() {
       const image = await Assets.load(gifImage);
       app.stage.addChild(image);
       image.width = 90;
       image.height = 90;
       image.x = 25;
       image.y = 335;
+
       const curve = new PIXI.Graphics();
       curve.lineStyle(2, 0x0e0e0e);
       curve.moveTo(0, 0);
       curve.bezierCurveTo(10, 0, 11, 10, 13, 11);
       app.stage.addChild(curve);
+
       const area = new PIXI.Graphics();
       area.beginFill(0x0e0e0e);
       area.moveTo(25, 425);
@@ -162,16 +171,19 @@ const Canvas = () => {
       let angle = 0;
       let amplitude = 140;
       let frequency = 0.0069;
+
       function update() {
         image.x += xVel;
         image.y = 190 + Math.cos(angle) * amplitude;
         angle += frequency;
+
         if (image.x >= 700) {
           image.x -= xVel;
           image.y = 190 + Math.cos(angle) * amplitude;
           uiy.y += 0.7;
           ui.x -= 0.7;
         }
+
         curve.clear();
         curve.lineStyle(5, 0x00ced1);
         curve.moveTo(25, 424);
@@ -183,6 +195,7 @@ const Canvas = () => {
           image.x,
           image.y + 85
         );
+
         area.clear();
         area.beginFill(0x009092);
         area.moveTo(25, 425);
@@ -195,75 +208,66 @@ const Canvas = () => {
         if (value >= main) {
           image.x -= xVel;
           angle -= frequency;
-          gsap.to(image, { alpha: 0, delay: 2 });
-          gsap.to(curve, { alpha: 0, delay: 2 });
-          gsap.to(area, { alpha: 0, delay: 2 });
+
+          gsap.to([image, curve, area], { alpha: 0, delay: 2 });
+
           setTimeout(() => {
-            // Code to execute after the delay
             const txt2 = new PIXI.Text("PLANE FLEW AWAY", {
               fontFamily: "Arial",
               fontSize: 30,
               fill: 0x00ced1,
               align: "center",
             });
+
             txt2.anchor.set(0.5);
             app.stage.addChild(txt2);
             txt2.position.set(app.screen.width / 2, app.screen.height / 2);
-            //window.location.reload()
+            setTimeout(() => {
+              window.location.reload();
+            }, 2000);
           }, 3000);
         }
       }
 
-      window.setTimeout(function () {
-        setInterval(() => {
-          if (value >= main) {
-            return clearInterval();
-          }
-          num.text = value.toFixed(2) + "x";
-          value = value + 0.01;
-          //console.log('Interval triggered');
-        }, duration);
+      await new Promise((resolve) => setTimeout(resolve, 6000));
 
-        app.ticker.add((delta) => {
-          update();
-        });
-      }, 6000);
+      const num = new PIXI.Text("1.00x", {
+        fontFamily: "Arial",
+        fontSize: 50,
+        fill: 0x00ced1,
+      });
+
+      num.anchor.set(0.5);
+      num.position.set(110, 50);
+      app.stage.addChild(num);
+
+      const ticker = app.ticker.add((delta) => {
+        update();
+
+        if (value >= main) {
+          //ticker.destroy();
+        } else {
+          num.text = value.toFixed(2) + "x";
+          value += 0.01;
+        }
+      });
     }
-    imageCall();
-    const num = new PIXI.Text("1.00x", {
-      fontFamily: "Arial",
-      fontSize: 70,
-      fill: 0x00ced1,
-    });
-    num.position.set(60, 30);
-    app.stage.addChild(num);
-    gsap.to(num, {
-      duration: 0,
-      alpha: 0,
-    });
-    gsap.to(num, { duration: 3, alpha: 1, delay: 6 });
+
+    animatePlane();
 
     let main = point + 0.001;
-    //console.log(main)
-    let rel = main + 1.0;
 
     const xline = new PIXI.Graphics();
     app.stage.addChild(xline);
     xline.lineStyle(1, 0xffffff).moveTo(850, 425).lineTo(24, 425);
-    gsap.to(xline, {
-      duration: 0,
-      alpha: 0,
-    });
-    gsap.to(xline, { duration: 10, alpha: 1, delay: 6 });
+    xline.alpha = 0;
+    gsap.to(xline, { duration: 0, alpha: 1, delay: 6 });
 
     const yline = new PIXI.Graphics();
     app.stage.addChild(yline);
     yline.lineStyle(1, 0xffffff).moveTo(25, 425).lineTo(25, 0);
-    gsap.to(yline, {
-      duration: 0,
-      alpha: 0,
-    });
-    gsap.to(yline, { duration: 10, alpha: 1, delay: 6 });
+    yline.alpha = 0;
+    gsap.to(yline, { duration: 0, alpha: 1, delay: 6 });
 
     var graphics = new PIXI.Graphics().lineStyle(2, 0xffffff, 1);
 
@@ -272,18 +276,15 @@ const Canvas = () => {
     var ui = new PIXI.Graphics();
 
     ui.beginFill(0xffffff);
-    for (var i = 0; i < 40000; i++) {
+    for (var i = 0; i < 50000; i++) {
       var x = i * 90 + 42;
       var y = 440;
       var d = 2;
       ui.drawCircle(x, y, d);
       app.stage.addChild(ui);
     }
-    gsap.to(ui, {
-      duration: 0,
-      alpha: 0,
-    });
-    gsap.to(ui, { duration: 10, alpha: 1, delay: 6 });
+    ui.alpha = 0;
+    gsap.to(ui, { duration: 0, alpha: 1, delay: 6 });
 
     var uiy = new PIXI.Graphics();
 
@@ -295,11 +296,8 @@ const Canvas = () => {
       uiy.drawCircle(x, y, radius);
       app.stage.addChild(uiy);
     }
-    gsap.to(uiy, {
-      duration: 0,
-      alpha: 0,
-    });
-    gsap.to(uiy, { duration: 10, alpha: 1, delay: 6 });
+    uiy.alpha = 0;
+    gsap.to(uiy, { duration: 0, alpha: 1, delay: 6 });
     return () => {
       app.destroy(true);
     };
@@ -319,7 +317,6 @@ function hashValue(length) {
   }
   return hashValue;
 }
-//console.log(hashValue(30));
 
 function getCrashPoint() {
   const e = 2 ** 32;
