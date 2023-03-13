@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Auto.css";
 import { ToastContainer, toast } from "react-toastify";
-import { faCross, faMinusSquare, faPlusSquare, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { faMinusSquare, faPlusSquare, faXmark } from "@fortawesome/free-solid-svg-icons";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
