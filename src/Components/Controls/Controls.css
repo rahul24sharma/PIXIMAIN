@@ -211,7 +211,7 @@
     right: 0;
     bottom: 0;
     background-color: #000;
-    transition: .4s;
+    transition: 0.4s ease;
     border-radius: 15px;
     display: flex;
     justify-content: space-between;
@@ -226,7 +226,7 @@
     left: 2.5px;
     bottom: 2.5px;
     background-color: #282621;
-    transition: .4s;
+    transition: 0.4s ease;
     border-radius: 15px;
   }
   
