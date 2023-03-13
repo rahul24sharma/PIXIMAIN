@@ -116,7 +116,7 @@
     position: absolute;
     content: "";
     height: 20px;
-    width: 96px;
+    width: 98px;
     left: 3px;
     bottom: 2.5px;
     background-color: #282621;
@@ -129,7 +129,7 @@
   }
   
   input:checked + .slider-button:before {
-    transform: translateX(98px);
+    transform: translateX(96px);
     background-color: #282621;
   }
   
@@ -222,7 +222,7 @@
     position: absolute;
     content: "";
     height: 20px;
-    width: 96px;
+    width: 98px;
     left: 2.5px;
     bottom: 2.5px;
     background-color: #282621;
@@ -235,7 +235,7 @@
   }
   
   input:checked + .slider-button2:before {
-    transform: translateX(99px);
+    transform: translateX(96px);
     background-color: #282621;
   }
   

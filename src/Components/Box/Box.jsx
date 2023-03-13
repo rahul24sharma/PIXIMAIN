@@ -1,22 +1,20 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import "./Box.css";
-import { DataGrid } from '@mui/x-data-grid';
-import { db } from "../../firebase"
-import { collection, getDocs } from  "firebase/firestore"
-
+import { DataGrid } from "@mui/x-data-grid";
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 const Box = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [data, setData] = useState([]);
 
-    const handleReload = () => {
-      window.location.reload();
-    };
-  
+  const handleReload = () => {
+    window.location.reload();
+  };
 
   const columns = [
-     //{ field: 'id', headerName: 'ID', width: 100 },
+    //{ field: 'id', headerName: 'ID', width: 100 },
     { field: "name", headerName: "Username", width: 150 },
     { field: "value", headerName: "Bet", width: 100 },
     { field: "point", headerName: "Multiplier", width: 100 },
@@ -79,7 +77,9 @@ const Box = () => {
             </li>
           </ul>
         </nav>
-        <button onClick={handleReload} className="reload">Reload</button>
+        <a onClick={handleReload} className="reload">
+              Reload
+            </a>
         <div className="container">
           <div className="card" style={{ backgroundColor: "black" }}>
             <div className="card-title"></div>

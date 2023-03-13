@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./Auto.css";
 import { ToastContainer, toast } from "react-toastify";
-import { faMinusSquare, faPlusSquare, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faMinusSquare,
+  faPlusSquare,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -9,10 +13,10 @@ const Auto = () => {
   const [flipped, setFlipped] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
   const [value, setValue] = useState(1.0);
-  const [sliderValue, setSliderValue] = useState(false);
+  const [slidValue, setSlidValue] = useState(false);
 
   const handleSliderChange = () => {
-    setSliderValue(!sliderValue);
+    setSlidValue(!slidValue);
   };
 
   const handleClick = () => {
@@ -101,6 +105,10 @@ const Auto = () => {
       <button className="autoplay">AutoPlay</button>
       <div className="auca">
         <p>Auto Cashout</p>
+        {/* <label className="slider">
+          <input type="checkbox" checked={slidValue} onChange={handleSliderChange} />
+          <span className="sliderToggle3"></span>
+        </label> */}
         {/* <label className="switch">
           <input
             type="checkbox"
@@ -109,7 +117,7 @@ const Auto = () => {
           />
           <span className="slider round"></span>
         </label> */}
-        <input className="number" type="text" defaultValue="1.10"/>
+        <input className="number" type="text" defaultValue="1.10" />
         {/* <FontAwesomeIcon
           className="cross"
           style={{
@@ -120,7 +128,6 @@ const Auto = () => {
           }}
           icon={faXmark}
         /> */}
-
       </div>
     </div>
   );
