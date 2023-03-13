@@ -9,7 +9,7 @@
   margin: 0 8px;
 }
 .wrap {
-  margin: 5px 15px;
+  margin: 7px 15px;
   height: 40px;
   width: 160px;
   display: flex;
@@ -159,6 +159,9 @@ input:checked + .slider:before {
     .wrap{
       border: 1px solid #000;
       outline: none;
+      height: 30px;
+      width: 150px;
+      margin: 10px 15px;
     }
     .switch {
       width: 40px;
@@ -183,5 +186,8 @@ input:checked + .slider:before {
     .inc{
       margin: 0 8px;
       font-size: 18px;
+    }
+    .buttonsauto{
+      margin-top: -15px;
     }
 }

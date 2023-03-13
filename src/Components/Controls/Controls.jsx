@@ -187,9 +187,20 @@ const Control = () => {
             icon={faPlusSquare}
           />
           <div>
-            <div className="toggle-container" onClick={handleToggleChange}>
-              <div className={`toggle-btn ${!toggle ? "disable" : ""}`}>
-                {toggle ? "Auto" : "Bet"}
+            <div className="toggle-container">
+              <div className="slider-container">
+                <label className="slider">
+                  <div className="slider-label left">Off</div>
+                  <input
+                    type="checkbox"
+                    onClick={handleToggleChange}
+                    checked={toggle}
+                  />
+                  <div className="slider-button">
+                    <div className="slider-button-label on">Bet</div>
+                    <div className="slider-button-label off">Auto</div>
+                  </div>
+                </label>
               </div>
             </div>
             {toggle ? (
@@ -288,9 +299,20 @@ const Control = () => {
               icon={faMinusSquare}
             />
             <div>
-              <div className="toggle-container2" onClick={handleToggleChange2}>
-                <div className={`toggle-btn2 ${!toggle2 ? "disable2" : ""}`}>
-                  {toggle2 ? "Auto" : "Bet"}
+              <div className="toggle-container2">
+                <div className="slider-container2">
+                  <label className="slider2">
+                    <div className="slider-label left2">Off</div>
+                    <input
+                      type="checkbox"
+                      onClick={handleToggleChange2}
+                      checked={toggle2}
+                    />
+                    <div className="slider-button2">
+                      <div className="slider-button-label on2">Bet</div>
+                      <div className="slider-button-label off2">Auto</div>
+                    </div>
+                  </label>
                 </div>
               </div>
               {toggle2 ? (

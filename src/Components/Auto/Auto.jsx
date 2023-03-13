@@ -101,16 +101,16 @@ const Auto = () => {
       <button className="autoplay">AutoPlay</button>
       <div className="auca">
         <p>Auto Cashout</p>
-        <label className="switch">
+        {/* <label className="switch">
           <input
             type="checkbox"
             checked={sliderValue}
             onChange={handleSliderChange}
           />
           <span className="slider round"></span>
-        </label>
+        </label> */}
         <input className="number" type="text" defaultValue="1.10"/>
-        <FontAwesomeIcon
+        {/* <FontAwesomeIcon
           className="cross"
           style={{
             backgroundColor: "black",
@@ -119,7 +119,7 @@ const Auto = () => {
             margin: "0px 5px",
           }}
           icon={faXmark}
-        />
+        /> */}
 
       </div>
     </div>
