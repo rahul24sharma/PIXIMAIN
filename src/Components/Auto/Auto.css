@@ -130,7 +130,7 @@ input:checked + .slider:before {
 }
 @media (max-width: 500px) {
     .main{
-        margin: 1px 25px 0 180px;
+        margin: 10px 25px 0 180px;
     }
     .autoplay{
         font-size: 11px;
@@ -143,6 +143,10 @@ input:checked + .slider:before {
     .number{
         height: 18.5px;
         margin: 0px 15px;
+        font-size: 10px;
+    }
+    .cross{
+      right: 30px;
     }
 
     .dollarauto{
