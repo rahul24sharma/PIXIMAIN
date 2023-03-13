@@ -214,26 +214,26 @@ const Control = () => {
                   </div>
                   <ToastContainer />
                   <div className="wrapper">
-                    <div className="multiplier">{value.toFixed(2)}</div>
                     <FontAwesomeIcon
                       className="inc"
                       onClick={handleIncrement}
                       style={{
                         backgroundColor: "black",
-                        color: "white",
+                        color: "#282828",
                         fontSize: "23px",
-                        outline: "none",
+                        margin: "0px 5px",
                       }}
                       icon={faPlusSquare}
                     />
+                    <div className="multiplier">{value.toFixed(2)}</div>
+
                     <FontAwesomeIcon
                       className="inc2"
                       onClick={handleDecrement}
                       style={{
                         backgroundColor: "black",
-                        color: "white",
+                        color: "#282828",
                         fontSize: "23px",
-                        outline: "none",
                         margin: "0px 5px",
                       }}
                       icon={faMinusSquare}
@@ -306,9 +306,14 @@ const Control = () => {
                         className={`flip-button ${fliped ? "fliped" : ""}`}
                         onClick={clicked}
                       >
-                        <div className="flip-front">Bet</div>
                         <div
-                          style={{ borderRadius: "5px" }}
+                          style={{ borderRadius: "15px" }}
+                          className="flip-front"
+                        >
+                          Bet
+                        </div>
+                        <div
+                          style={{ borderRadius: "15px" }}
                           className="flip-back"
                         >
                           Cashout <br />
@@ -318,24 +323,26 @@ const Control = () => {
                     </div>
                     <ToastContainer />
                     <div className="wrapper">
-                      <div className="multiplier">{value2.toFixed(2)}</div>
                       <FontAwesomeIcon
                         className="inc"
                         onClick={handleIncrement2}
                         style={{
                           backgroundColor: "black",
-                          color: "white",
+                          color: "#282828",
                           fontSize: "23px",
                           outline: "none",
+                          margin: "0px 5px",
                         }}
                         icon={faPlusSquare}
                       />
+                      <div className="multiplier">{value2.toFixed(2)}</div>
+
                       <FontAwesomeIcon
                         className="inc"
                         onClick={handleDecrement2}
                         style={{
                           backgroundColor: "black",
-                          color: "white",
+                          color: "#282828",
                           fontSize: "23px",
                           margin: "0px 5px",
                           outline: "none",

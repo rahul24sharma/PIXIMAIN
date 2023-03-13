@@ -10,8 +10,8 @@
     background-color: #282828;
     border-radius: 5px;
     border: 1px solid black;
-    margin: 12px -5px 0px 10px;
-    margin-left: 30px;
+    margin: 12px -5px 0px 5px;
+    margin-left: 28px;
     width: 50px;
   }
   
@@ -106,7 +106,7 @@
   }
   .buttons {
     position: absolute;
-    margin-top: -5px;
+    margin-top: -10px;
   }
   .third {
     position: absolute;
@@ -124,16 +124,14 @@
   }
   
   .wrapper {
-    margin: 10px 0px 0 30px;
+    margin: 10px 10px;
     height: 40px;
-    width: 130px;
+    width: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: black;
-    border-radius: 5px;
-    outline-style: auto;
-    border-color: white;
+    border-radius: 15px;
   }
   .num {
     padding-left: 15px;
@@ -167,12 +165,12 @@
   }
   .betx{
     position: absolute;
-    right: 40px;
+    right: 20px;
     top: 65px;
   }
   
   .betxx {
-    margin: 5px 25px 0 200px;
+    margin: 0px 25px 0 190px;
     position: absolute;
     outline: 0;
     display: block;
@@ -208,11 +206,11 @@
   
   .flip-button {
     position: relative;
-    width: 10em;
+    width: 12em;
     height: 5em;
     border: none;
-    border-radius: 5px;
-    background-color: #ccc;
+    border-radius: 15px;
+    background-color: #282828;
     cursor: pointer;
     overflow: hidden;
   }
@@ -302,6 +300,7 @@
   }
   .multiplier{
     width: 80px;
+    font-size: 20px;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -408,7 +407,8 @@
       margin: 15px 0 0 30px;
       height: 30px;
       width: 135px;
-      border: 1px solid white;
+      border: 1px solid #000;
+      border-radius: 15px;
       outline: none;
     }
     .multiplier{

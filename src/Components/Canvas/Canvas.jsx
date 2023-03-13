@@ -223,13 +223,7 @@ const Canvas = () => {
             app.stage.addChild(txt2);
             txt2.position.set(app.screen.width / 2, app.screen.height / 2);
             setTimeout(() => {
-              if (typeof window !== "undefined") {
-                window.location.reload();
-              }else{
-                function reloadPage(response) {
-                  response.redirect("/");
-                }
-              }
+            //  navigate('/')
             }, 2000);
           }, 3000);
         }

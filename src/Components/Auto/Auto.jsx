@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Auto.css";
 import { ToastContainer, toast } from "react-toastify";
-import { faMinusSquare, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCross, faMinusSquare, faPlusSquare, faXmark } from "@fortawesome/free-solid-svg-icons";
 import "react-toastify/dist/ReactToastify.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -54,25 +54,26 @@ const Auto = () => {
       </div>
       <ToastContainer />
       <div className="wrap">
-        <div className="multiplier">{value.toFixed(2)}</div>
         <FontAwesomeIcon
           className="inc"
           onClick={handleIncrement}
           style={{
             backgroundColor: "black",
-            color: "white",
-            fontSize: "18px",
+            color: "#282828",
+            fontSize: "22px",
             outline: "none",
           }}
           icon={faPlusSquare}
         />
+        <div className="multiplier">{value.toFixed(2)}</div>
+
         <FontAwesomeIcon
           className="inc2"
           onClick={handleDecrement}
           style={{
             backgroundColor: "black",
-            color: "white",
-            fontSize: "18px",
+            color: "#282828",
+            fontSize: "22px",
             outline: "none",
             margin: "0px 5px",
           }}
@@ -108,7 +109,17 @@ const Auto = () => {
           />
           <span className="slider round"></span>
         </label>
-        <input className="number" type="text" />
+        <input className="number" type="text" defaultValue="1.10"/>
+        <FontAwesomeIcon
+          className="cross"
+          style={{
+            backgroundColor: "black",
+            fontSize: "10px",
+            outline: "none",
+            margin: "0px 5px",
+          }}
+          icon={faXmark}
+        />
 
       </div>
     </div>
