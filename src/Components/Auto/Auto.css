@@ -5,7 +5,9 @@
   display: block;
   padding: 10px 2px;
 }
-
+.inc{
+  margin: 0 8px;
+}
 .wrap {
   margin: 5px 15px;
   height: 40px;
@@ -174,5 +176,9 @@ input:checked + .slider:before {
       -webkit-transform: translateX(23px);
       -ms-transform: translateX(23px);
       transform: translateX(23px);
+    }
+    .inc{
+      margin: 0 8px;
+      font-size: 18px;
     }
 }
