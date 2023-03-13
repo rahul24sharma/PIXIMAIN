@@ -166,15 +166,13 @@ input:checked + .slider:before {
       margin: 2px 8px;
     }
     .slider:before {
-      position: absolute;
-      content: "";
       height: 12px;
       width: 12px;
       left: 2px;
       bottom: 2px;
       background-color: white;
-      -webkit-transition: 0.4s;
-      transition: 0.4s;
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
       border-radius: 50%;
     }
     input:checked + .slider:before {
